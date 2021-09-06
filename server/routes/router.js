@@ -16,7 +16,7 @@ route.get('/user-login',services.user_login);
 
 route.get('/session',services.session_set);
 
-route.post('/update',user1.updates);
+//route.post('/update',user1.updates);
 route.get('/update-user/:id',services.update_user);
 //api
 //route.post('/api/users',user1.create);
@@ -85,8 +85,8 @@ destination: function (req, file, callback) {
 var upload = multer({ storage : storage}).single('file');
 
 route.post('/api/users',upload,function(req,res){
-  //validate request
- // console.log(req.file);
+  if (req.session.user){
+    console.log(req.session.user);
   if(!req.body){
       res.status(400).send({message:"content can not be empty"});
       return;
@@ -121,6 +121,28 @@ user
        message:err.message|| 'some error occured'
    });
 
+});
+  }
+  else{
+    res.redirect('user-login')
+  }
+});
+
+route.post('/updates',upload,function(req,res){
+  if(!req.body){
+     return res
+     .status(400).send({message:"content can not be empty"});
+      return;
+  }
+const id=req.params.id;
+const update=Userdb.findOneAndUpdate(req.body.id,{ name:req.body.name,
+  email:req.body.email,
+  gender:req.body.gender,
+  status:req.body.status,
+  image:req.file.filename,
+  })
+  update.exec(function(err,data){
+    res.redirect('/');
 });
 });
 

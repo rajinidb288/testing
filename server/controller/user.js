@@ -43,6 +43,7 @@ exports.updates=(req,res)=>{
     email:req.body.email,
     gender:req.body.gender,
     status:req.body.status,
+    status:req.file.filename,
     })
     update.exec(function(err,data){
       res.redirect('/');

@@ -12,7 +12,7 @@
         <h2 class="text-dark">Update user</h2>
         <span class="text-light">use the below form to update  accpunt </span>
       </div>
-      <form action="/update" method="POST" id="update_user">
+      <form action="/updates" method="POST" id="update_user" enctype="multipart/form-data">
         <div class="new_user">
             <div class="form-group">
                 <label for="name" class="text-light">Name</label>
@@ -46,7 +46,11 @@
                     <label for="radio-5" class="radio-label">Inactive</label>
                 </div>
             </div>
-    
+            <div class="form-group">
+                <label for="Email" class="text-light">Profile </label>
+                <input type="file" name="file" value="" >
+            </div>
+            <img src="/img/<%= records.image %> " width=100>
             <div class="form-group">
                 <button type="submit" class="btn text-dark update">Save</button>
             </div>
